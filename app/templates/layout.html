@@ -33,6 +33,7 @@
             <strong>Warning</strong> This app doesn't warranty <i>ANY</i> damage or loss from using this app.
           </div>
           <div class="text-center">
+            <a hidden id="linkHome" href="/" class="btn btn-default margin">Back to Home</a>
             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#aboutModal">About the Software</button>
             <a href="#" class="btn btn-default" role="button">See the Source</a>
           </div>
@@ -71,6 +72,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/static/js/bootstrap.min.js"></script>
-    <script src="/static/js/site.js"></script>
+    {% block js %}
+    {% endblock %}
   </body>
 </html>

@@ -30,7 +30,7 @@ drawEventDiagram <- function(numMatrix) {
   png(filename)
 
   # Convert the matrix to a corresponding data frame
-  df <- data.frame(x = rep(1:dim(numMatrix)[1], each = 7), y = as.vector(numMatrix))
+  df <- data.frame(x = rep(1:dim(numMatrix)[1], each = 6), y = as.vector(numMatrix))
 
   # Draw a histogram
   img <- ggplot(df, aes(x, y)) + geom_point(pch = "_") + xlab("Time") + ylab("Lottery Number")

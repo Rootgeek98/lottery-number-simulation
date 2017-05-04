@@ -6,4 +6,6 @@ $( document ).ready(function() {
     maxHeight = Math.max.apply(null, heights);
 
     $(".panel").height(maxHeight);
+
+    $("#linkHome").hide();
 });
