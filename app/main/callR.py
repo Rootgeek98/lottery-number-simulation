@@ -1,9 +1,9 @@
 import io
-import numpy
-import pyRserve
 import random
 
-from flask import render_template, send_file
+import numpy
+import pyRserve
+from flask import request, render_template, send_file
 from PIL import Image
 
 from . import main
@@ -11,9 +11,39 @@ from . import main
 
 rConn = pyRserve.connect(host='localhost', port=6311)
 
+
+
 @main.route('/histogram/')
 def serve_diagram():
-    rConn.r.num = numpy.array([random.randint(1, 48) for i in range(100)])
+    duration = request.args.get('duration')
+
+    # Re-implmenet it later.
+    n = 0
+    if duration == '3m':
+        n = 13
+    elif duration == '6m':
+        n = 26
+    elif duration == '1y':
+        n = 52
+    elif duration == '2y':
+        n = 104
+    elif duration == 'all':
+        n = 156
+
+    arr = []
+    i = 0
+    while i < n:
+        j = 0
+
+        while j < 6:
+            num = random.randint(1, 48)
+            if num not in row:
+                arr += num
+                j = j + 1
+
+        i = i + 1
+
+    rConn.r.num = numpy.array(arr)
 
     rawImage = rConn.r('drawHistogram(num)')
 
@@ -29,8 +59,37 @@ def serve_diagram():
 
 @main.route('/event/')
 def serve_event():
-    rConn.r.num = numpy.array([[random.randint(1, 48) for i in range(6)]
-        for j in range(50)])
+    duration = request.args.get('duration')
+
+    # Re-implmenet it later.
+    n = 0
+    if duration == '3m':
+        n = 13
+    elif duration == '6m':
+        n = 26
+    elif duration == '1y':
+        n = 52
+    elif duration == '2y':
+        n = 104
+    elif duration == 'all':
+        n = 156
+
+    arr = []
+    i = 0
+    while i < n:
+        j = 0
+        row = []
+
+        while j < 6:
+            num = random.randint(1, 48)
+            if num not in row:
+                row += num
+                j = j + 1
+
+        arr += row
+        i = i + 1
+
+    rConn.r.num = numpy.array(arr)
 
     rawImage = rConn.r('drawEventDiagram(num)')
 

@@ -1,13 +1,17 @@
 function callHistogram() {
   var duration = $("#histOption").val();
 
-  $("#histogram").attr("src", "/histogram/?duration=" + duration);
+  $.get("/histogram/", duration, function (data) {
+    $("#histogram").attr("src", "/histogram/?duration=" + duration);
+  });
 }
 
 function callEvent() {
   var duration = $("#eventOption").val();
 
-  $("#event").attr("src", "/event/?duration=" + duration);
+  $.get("/event/", duration, function (data) {
+    $("#event").attr("src", "/event/?duration=" + duration);
+  });
 }
 
 function showHistogram() {
@@ -32,12 +36,12 @@ $( document ).ready(function() {
     $("#linkHome").show();
 
     callHistogram();
-    $("#histOption").select(function () {
+    $("#histOption").change(function () {
       callHistogram();
     });
 
     callEvent();
-    $("#eventOption").select(function () {
+    $("#eventOption").change(function () {
       callEvent();
     });
 
