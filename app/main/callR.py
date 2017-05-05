@@ -1,4 +1,5 @@
 import io
+import json
 import random
 
 import numpy
@@ -37,15 +38,15 @@ def serve_diagram():
         j = 0
 
         while j < 6:
-            num = random.randint(1, 48)
-            if num not in row:
-                row.append(num)
-                arr.append(num)
+            _num = random.randint(1, 48)
+            if _num not in row:
+                row.append(_num)
+                arr.append(_num)
                 j = j + 1
 
         i = i + 1
 
-    rConn.r.num = numpy.array(arr)
+    rConn.r.num = numpy.array(arr).astype(int)
 
     rawImage = rConn.r('drawHistogram(num)')
 
@@ -104,3 +105,9 @@ def serve_event():
     imgIO.seek(0)
 
     return send_file(imgIO, mimetype='image/png')
+
+@main.route('/random/', methods=['POST'])
+def serve_random():
+    numArray = rConn.r('predictByRandom()')
+    arr = [int(n) for n in numArray]
+    return json.dumps(arr)

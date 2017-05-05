@@ -33,7 +33,7 @@ drawEventDiagram <- function(numMatrix) {
   df <- data.frame(x = rep(1:dim(numMatrix)[1], each = 6), y = as.vector(numMatrix))
 
   # Draw a histogram
-  img <- ggplot(df, aes(x, y)) + geom_point(pch = "-") + xlab("Time") + ylab("Lottery Number")
+  img <- ggplot(df, aes(x, y)) + geom_point(pch = "=") + xlab("Time") + ylab("Lottery Number")
   ggsave(filename, img)
 
   # Switch off device
