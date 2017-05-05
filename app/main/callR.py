@@ -33,12 +33,14 @@ def serve_diagram():
     arr = []
     i = 0
     while i < n:
+        row =[]
         j = 0
 
         while j < 6:
             num = random.randint(1, 48)
             if num not in row:
-                arr += num
+                row.append(num)
+                arr.append(num)
                 j = j + 1
 
         i = i + 1
@@ -83,10 +85,10 @@ def serve_event():
         while j < 6:
             num = random.randint(1, 48)
             if num not in row:
-                row += num
+                row.append(num)
                 j = j + 1
 
-        arr += row
+        arr.append(row)
         i = i + 1
 
     rConn.r.num = numpy.array(arr)
