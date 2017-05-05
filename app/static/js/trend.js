@@ -1,7 +1,7 @@
 function callHistogram() {
   var duration = $("#histOption").val();
 
-  $.get("/histogram/", "duration=" + duration, function (data) {
+  $.get("/histogram/", "duration=" + duration, function(data) {
     $("#histogram").attr("src", "/histogram/?duration=" + duration);
   });
 }
@@ -9,7 +9,7 @@ function callHistogram() {
 function callEvent() {
   var duration = $("#eventOption").val();
 
-  $.get("/event/", "duration=" + duration, function (data) {
+  $.get("/event/", "duration=" + duration, function(data) {
     $("#event").attr("src", "/event/?duration=" + duration);
   });
 }
@@ -24,32 +24,26 @@ function showEvent() {
   $("#eventForm").show();
 }
 
-$( document ).ready(function() {
-    var heights = $(".panel").map(function() {
-        return $(this).height();
-    }).get(),
+$(document).ready(function() {
+  adjustHeight(".panel");
 
-    maxHeight = Math.max.apply(null, heights);
+  $("#linkHome").show();
 
-    $(".panel").height(maxHeight);
-
-    $("#linkHome").show();
-
+  callHistogram();
+  $("#histOption").change(function() {
     callHistogram();
-    $("#histOption").change(function () {
-      callHistogram();
-    });
+  });
 
+  callEvent();
+  $("#eventOption").change(function() {
     callEvent();
-    $("#eventOption").change(function () {
-      callEvent();
-    });
+  });
 
-    $("#histButton").click(function () {
-      showHistogram();
-    });
+  $("#histButton").click(function() {
+    showHistogram();
+  });
 
-    $("#eventButton").click(function () {
-      showEvent();
-    });
+  $("#eventButton").click(function() {
+    showEvent();
+  });
 });

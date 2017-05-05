@@ -1,9 +1,9 @@
-function adjustHeight(cls) {
-  var heights = $(cls).map(function() {
+function adjustHeight(s) {
+  var heights = $(s).map(function() {
       return $(this).height();
   }).get(),
 
   maxHeight = Math.max.apply(null, heights);
 
-  $(cls).height(maxHeight);
+  $(s).height(maxHeight);
 }
