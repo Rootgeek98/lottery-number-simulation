@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    <div class="thumbnail">
+      <div class="caption">
+        <h2>Random</h2>
+        <p class="panel">Pick random lottery numbers.</p>
+        <button id="btnRandom" type="button" class="btn btn-primary">Pick</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="thumbnail">
+      <div class="caption">
+        <h2>Frequency</h2>
+        <p class="panel">Pick lottery numbers by their frequency.</p>
+        <button id="btnHighFreq" type="button" class="btn btn-primary margin-side">High</a>
+        <button id="btnLowFreq" type="button" class="btn btn-primary margin-side">Low</a>
+      </div>
+    </div>
+  </div>
+  <form id="formRandom" hidden>
+    <div class="thumbnail">
+      <img id="ballOneRandom" src="" alt="Ball One">
+    </div>
+  </form>
+  <form id="formHighFreq" hidden>
+    <div class="thumbnail">
+      <img id="ballOneHigh" src="" alt="Ball One">
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="/static/js/prediction.js"></script>
+{% endblock %}

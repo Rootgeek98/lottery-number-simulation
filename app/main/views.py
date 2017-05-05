@@ -5,6 +5,10 @@ from . import main
 def trend():
     return render_template('trend.html')
 
+@main.route('/prediction/')
+def prediction():
+    return render_template('prediction.html')
+
 @main.route('/')
 def index():
     return render_template('index.html')

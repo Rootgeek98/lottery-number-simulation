@@ -1,7 +1,7 @@
 function callHistogram() {
   var duration = $("#histOption").val();
 
-  $.get("/histogram/", duration, function (data) {
+  $.get("/histogram/", "duration=" + duration, function (data) {
     $("#histogram").attr("src", "/histogram/?duration=" + duration);
   });
 }
@@ -9,7 +9,7 @@ function callHistogram() {
 function callEvent() {
   var duration = $("#eventOption").val();
 
-  $.get("/event/", duration, function (data) {
+  $.get("/event/", "duration=" + duration, function (data) {
     $("#event").attr("src", "/event/?duration=" + duration);
   });
 }
