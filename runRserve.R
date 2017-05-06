@@ -61,15 +61,21 @@ predictByHighFreq <- function(numMatrix) {
   v <- c()
 
   repeat {
+
     temp <- as.vector(t)[i]
     name <- names(t)[i]
-
+    message(n)
+    message(temp)
     if (is.null(n)) {
       c <- c + 1
       n <- temp
-    } else if (n > temp) {
-      c <- c + 1
-      n <- temp
+    } else if (!is.null(temp) & !is.na(temp)) {
+      if (n > temp) {
+        c <- c + 1
+        n <- temp
+      }
+    } else {
+      break
     }
 
     if (c > 6) {

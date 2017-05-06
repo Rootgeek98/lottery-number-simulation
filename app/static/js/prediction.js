@@ -35,6 +35,19 @@ function predictByRandom() {
   });
 }
 
+function predictByHighFreq() {
+  var duration = $("#highFreqOption").val();
+  $.post('/high-freq/', $.param({"duration": duration}), function (data) {
+    var arr = JSON.parse(data);
+    changeBall("#ballOneHighFreq", arr[0]);
+    changeBall("#ballTwoHighFreq", arr[1]);
+    changeBall("#ballThreeHighFreq", arr[2]);
+    changeBall("#ballFourHighFreq", arr[3]);
+    changeBall("#ballFiveHighFreq", arr[4]);
+    changeBall("#ballSixHighFreq", arr[5]);
+  });
+}
+
 
 $( document ).ready(function() {
   adjustHeight(".panel");
@@ -43,7 +56,17 @@ $( document ).ready(function() {
   
   $('#btnRandom').click(function () {
     $('#formRandom').show();
-    $('#formHighFre').hide();
+    $('#formHighFreq').hide();
     predictByRandom();
+  });
+  
+  $('#btnHighFreq').click(function () {
+    $('#formRandom').hide();
+    $('#formHighFreq').show();
+    predictByHighFreq();
+  });
+  
+  $('#highFreqOption').change(function () {
+    predictByHighFreq();
   });
 });

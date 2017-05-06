@@ -7,7 +7,7 @@
       <div class="caption">
         <h2>Random</h2>
         <p class="panel">Pick random lottery numbers.</p>
-        <button id="btnRandom" type="button" class="btn btn-primary">Pick</a>
+        <button id="btnRandom" type="button" class="btn btn-primary">I Feel Lucky</a>
       </div>
     </div>
   </div>
@@ -55,11 +55,46 @@
 
   </form>
   <form id="formHighFreq" hidden>
-    <div class="col-sm-2">
+    <div class="form-group">
+      <select class="form-control" id="highFreqOption">
+        <option value="3m" selected>3 Months</option>
+        <option value="6m">6 Months</option>
+        <option value="1y">1 Year</option>
+        <option value="2y">2 Years</option>
+        <option value="all">All Time</option>
+      </select>
+    </div>
+    <div class="col-sm-2 col-xs-3">
       <div class="thumbnail">
-        <img id="ballOneHigh" src="" alt="Ball One">
+        <img id="ballOneHighFreq" src="" alt="Ball One">
       </div>
     </div>
+    <div class="col-sm-2 col-xs-3">
+      <div class="thumbnail">
+        <img id="ballTwoHighFreq" src="" alt="Ball Two">
+      </div>
+    </div>
+    <div class="col-sm-2 col-xs-3">
+      <div class="thumbnail">
+        <img id="ballThreeHighFreq" src="" alt="Ball Three">
+      </div>
+    </div>
+    <div class="col-sm-2 col-xs-3">
+      <div class="thumbnail">
+        <img id="ballFourHighFreq" src="" alt="Ball Four">
+      </div>
+    </div>
+    <div class="col-sm-2 col-xs-3">
+      <div class="thumbnail">
+        <img id="ballFiveHighFreq" src="" alt="Ball Five">
+      </div>
+    </div>
+    <div class="col-sm-2 col-xs-3">
+      <div class="thumbnail">
+        <img id="ballSixHighFreq" src="" alt="Ball Six">
+      </div>
+    </div>
+
   </form>
 </div>
 {% endblock %}
