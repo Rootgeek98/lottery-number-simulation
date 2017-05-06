@@ -147,5 +147,43 @@ def serve_high_freq():
     rConn.r.num = numpy.array(arr)
     numArray = rConn.r('predictByHighFreq(num)')
     numArray = [int(n) for n in numArray]
-    print(numArray)
+
+    return json.dumps(numArray)
+    
+@main.route('/low-freq/', methods=['POST'])
+def serve_low_freq():
+    duration = request.form.get('duration')
+
+    # Re-implmenet it later.
+    n = 0
+    if duration == '3m':
+        n = 13
+    elif duration == '6m':
+        n = 26
+    elif duration == '1y':
+        n = 52
+    elif duration == '2y':
+        n = 104
+    elif duration == 'all':
+        n = 156
+        
+    arr = []
+    i = 0
+    while i < n:
+        j = 0
+        row = []
+
+        while j < 6:
+            num = random.randint(1, 48)
+            if num not in row:
+                row.append(num)
+                j = j + 1
+
+        arr.append(row)
+        i = i + 1
+
+    rConn.r.num = numpy.array(arr)
+    numArray = rConn.r('predictByLowFreq(num)')
+    numArray = [int(n) for n in numArray]
+
     return json.dumps(numArray)

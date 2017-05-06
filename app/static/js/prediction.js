@@ -48,6 +48,19 @@ function predictByHighFreq() {
   });
 }
 
+function predictByLowFreq() {
+  var duration = $("#lowFreqOption").val();
+  $.post('/low-freq/', $.param({"duration": duration}), function (data) {
+    var arr = JSON.parse(data);
+    changeBall("#ballOneLowFreq", arr[0]);
+    changeBall("#ballTwoLowFreq", arr[1]);
+    changeBall("#ballThreeLowFreq", arr[2]);
+    changeBall("#ballFourLowFreq", arr[3]);
+    changeBall("#ballFiveLowFreq", arr[4]);
+    changeBall("#ballSixLowFreq", arr[5]);
+  });
+}
+
 
 $( document ).ready(function() {
   adjustHeight(".panel");
@@ -57,16 +70,29 @@ $( document ).ready(function() {
   $('#btnRandom').click(function () {
     $('#formRandom').show();
     $('#formHighFreq').hide();
+    $('#formLowFreq').hide();
     predictByRandom();
   });
   
   $('#btnHighFreq').click(function () {
     $('#formRandom').hide();
     $('#formHighFreq').show();
+    $('#formLowFreq').hide();
     predictByHighFreq();
+  });
+  
+  $('#btnLowFreq').click(function () {
+    $('#formRandom').hide();
+    $('#formHighFreq').hide();
+    $('#formLowFreq').show();
+    predictByLowFreq();
   });
   
   $('#highFreqOption').change(function () {
     predictByHighFreq();
+  });
+  
+  $('#lowFreqOption').change(function () {
+    predictByLowFreq();
   });
 });
