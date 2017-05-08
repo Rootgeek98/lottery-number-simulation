@@ -19,7 +19,6 @@ model = model.Lottery()
 def serve_diagram():
     duration = request.args.get('duration')
 
-    # Re-implmenet it later.
     d = None
     if duration == '3m':
         d = '2017-02-01'
@@ -29,7 +28,6 @@ def serve_diagram():
         d = '2016-05-01'
     elif duration == '2y':
         d = '2015-05-01'
-
 
     arr = None
     if duration == 'all':
@@ -55,33 +53,21 @@ def serve_diagram():
 def serve_event():
     duration = request.args.get('duration')
 
-    # Re-implmenet it later.
-    n = 0
+    d = None
     if duration == '3m':
-        n = 13
+        d = '2017-02-01'
     elif duration == '6m':
-        n = 26
+        d = '2016-11-01'
     elif duration == '1y':
-        n = 52
+        d = '2016-05-01'
     elif duration == '2y':
-        n = 104
-    elif duration == 'all':
-        n = 156
+        d = '2015-05-01'
 
-    arr = []
-    i = 0
-    while i < n:
-        j = 0
-        row = []
-
-        while j < 6:
-            num = random.randint(1, 48)
-            if num not in row:
-                row.append(num)
-                j = j + 1
-
-        arr.append(row)
-        i = i + 1
+    arr = None
+    if duration == 'all':
+        arr = [[int(n.lstrip('0'), base=10) for n in row] for row in model.getAllNumbers()]
+    else:
+        arr = [[int(n.lstrip('0'), base=10) for n in row] for row in model.getNumberAfter(d)]
 
     rConn.r.num = numpy.array(arr)
 
