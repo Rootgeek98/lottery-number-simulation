@@ -8,7 +8,7 @@ drawHistogram <- function(numArray) {
   png(filename)
 
   # Draw a histogram
-  img <- ggplot(NULL, aes(x=numArray)) + geom_histogram(bins = 48, fill="white", colour="black") + xlab("Lottery Number") + ylab("Count")
+  img <- ggplot(NULL, aes(x=numArray)) + geom_histogram(breaks=seq(0,48) , fill="white", colour="black") + xlab("Lottery Number") + ylab("Count")
   ggsave(filename, img)
 
   # Switch off device

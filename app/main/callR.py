@@ -1,6 +1,7 @@
 import io
 import json
 import random
+import sys
 
 import numpy
 import pyRserve
@@ -8,43 +9,33 @@ from flask import request, render_template, send_file
 from PIL import Image
 
 from . import main
-
+from . import model
 
 rConn = pyRserve.connect(host='localhost', port=6311)
 
-
+model = model.Lottery()
 
 @main.route('/histogram/')
 def serve_diagram():
     duration = request.args.get('duration')
 
     # Re-implmenet it later.
-    n = 0
+    d = None
     if duration == '3m':
-        n = 13
+        d = '2017-02-01'
     elif duration == '6m':
-        n = 26
+        d = '2016-11-01'
     elif duration == '1y':
-        n = 52
+        d = '2016-05-01'
     elif duration == '2y':
-        n = 104
-    elif duration == 'all':
-        n = 156
+        d = '2015-05-01'
 
-    arr = []
-    i = 0
-    while i < n:
-        row =[]
-        j = 0
 
-        while j < 6:
-            _num = random.randint(1, 48)
-            if _num not in row:
-                row.append(_num)
-                arr.append(_num)
-                j = j + 1
-
-        i = i + 1
+    arr = None
+    if duration == 'all':
+        arr = [int(n.lstrip('0'), base=10) for row in model.getAllNumbers() for n in row]
+    else:
+        arr = [int(n.lstrip('0'), base=10) for row in model.getNumberAfter(d) for n in row]
 
     rConn.r.num = numpy.array(arr).astype(int)
 
@@ -111,7 +102,7 @@ def serve_random():
     numArray = rConn.r('predictByRandom()')
     arr = [int(n) for n in numArray]
     return json.dumps(arr)
-    
+
 @main.route('/high-freq/', methods=['POST'])
 def serve_high_freq():
     duration = request.form.get('duration')
@@ -128,7 +119,7 @@ def serve_high_freq():
         n = 104
     elif duration == 'all':
         n = 156
-        
+
     arr = []
     i = 0
     while i < n:
@@ -149,7 +140,7 @@ def serve_high_freq():
     numArray = [int(n) for n in numArray]
 
     return json.dumps(numArray)
-    
+
 @main.route('/low-freq/', methods=['POST'])
 def serve_low_freq():
     duration = request.form.get('duration')
@@ -166,7 +157,7 @@ def serve_low_freq():
         n = 104
     elif duration == 'all':
         n = 156
-        
+
     arr = []
     i = 0
     while i < n:
