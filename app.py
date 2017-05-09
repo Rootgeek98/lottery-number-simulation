@@ -2,7 +2,7 @@ import os
 from OpenSSL import SSL
 
 from app import create_app
-from flask.ext.script import Manager, Shell
+from flask_script import Manager, Shell
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 # TODO: solve HTTPS connection with Manager

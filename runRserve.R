@@ -49,7 +49,7 @@ drawEventDiagram <- function(numMatrix) {
 }
 
 predictByRandom <- function() {
-  return(sort(sample(1:48, 6, replace = FALSE)))
+  return(sort(sample(1:49, 6, replace = FALSE)))
 }
 
 predictByHighFreq <- function(numMatrix) {

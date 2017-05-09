@@ -11,6 +11,11 @@ from PIL import Image
 from . import main
 from . import model
 
+THREE_MONTH_AGO = '2017-02-01'
+SIX_MONTH_AGO = '2016-11-01'
+ONE_YEAR_AGO = '2016-05-01'
+TWO_YEAR_AGO = '2015-05-01'
+
 rConn = pyRserve.connect(host='localhost', port=6311)
 
 model = model.Lottery()
@@ -21,13 +26,13 @@ def serve_diagram():
 
     d = None
     if duration == '3m':
-        d = '2017-02-01'
+        d = THREE_MONTH_AGO
     elif duration == '6m':
-        d = '2016-11-01'
+        d = SIX_MONTH_AGO
     elif duration == '1y':
-        d = '2016-05-01'
+        d = ONE_YEAR_AGO
     elif duration == '2y':
-        d = '2015-05-01'
+        d = TWO_YEAR_AGO
 
     arr = None
     if duration == 'all':
@@ -55,13 +60,13 @@ def serve_event():
 
     d = None
     if duration == '3m':
-        d = '2017-02-01'
+        d = THREE_MONTH_AGO
     elif duration == '6m':
-        d = '2016-11-01'
+        d = SIX_MONTH_AGO
     elif duration == '1y':
-        d = '2016-05-01'
+        d = ONE_YEAR_AGO
     elif duration == '2y':
-        d = '2015-05-01'
+        d = TWO_YEAR_AGO
 
     arr = None
     if duration == 'all':
@@ -93,33 +98,21 @@ def serve_random():
 def serve_high_freq():
     duration = request.form.get('duration')
 
-    # Re-implmenet it later.
-    n = 0
+    d = None
     if duration == '3m':
-        n = 13
+        d = THREE_MONTH_AGO
     elif duration == '6m':
-        n = 26
+        d = SIX_MONTH_AGO
     elif duration == '1y':
-        n = 52
+        d = ONE_YEAR_AGO
     elif duration == '2y':
-        n = 104
-    elif duration == 'all':
-        n = 156
+        d = TWO_YEAR_AGO
 
-    arr = []
-    i = 0
-    while i < n:
-        j = 0
-        row = []
-
-        while j < 6:
-            num = random.randint(1, 48)
-            if num not in row:
-                row.append(num)
-                j = j + 1
-
-        arr.append(row)
-        i = i + 1
+    arr = None
+    if duration == 'all':
+        arr = [[int(n.lstrip('0'), base=10) for n in row] for row in model.getAllNumbers()]
+    else:
+        arr = [[int(n.lstrip('0'), base=10) for n in row] for row in model.getNumberAfter(d)]
 
     rConn.r.num = numpy.array(arr)
     numArray = rConn.r('predictByHighFreq(num)')
@@ -131,33 +124,21 @@ def serve_high_freq():
 def serve_low_freq():
     duration = request.form.get('duration')
 
-    # Re-implmenet it later.
-    n = 0
+    d = None
     if duration == '3m':
-        n = 13
+        d = THREE_MONTH_AGO
     elif duration == '6m':
-        n = 26
+        d = SIX_MONTH_AGO
     elif duration == '1y':
-        n = 52
+        d = ONE_YEAR_AGO
     elif duration == '2y':
-        n = 104
-    elif duration == 'all':
-        n = 156
+        d = TWO_YEAR_AGO
 
-    arr = []
-    i = 0
-    while i < n:
-        j = 0
-        row = []
-
-        while j < 6:
-            num = random.randint(1, 48)
-            if num not in row:
-                row.append(num)
-                j = j + 1
-
-        arr.append(row)
-        i = i + 1
+    arr = None
+    if duration == 'all':
+        arr = [[int(n.lstrip('0'), base=10) for n in row] for row in model.getAllNumbers()]
+    else:
+        arr = [[int(n.lstrip('0'), base=10) for n in row] for row in model.getNumberAfter(d)]
 
     rConn.r.num = numpy.array(arr)
     numArray = rConn.r('predictByLowFreq(num)')
